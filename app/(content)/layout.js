@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
           {`(function(){try{var attrs=['data-new-gr-c-s-check-loaded','data-gr-ext-installed'];attrs.forEach(function(a){if(document.documentElement&&document.documentElement.hasAttribute(a)){document.documentElement.removeAttribute(a)}if(document.body&&document.body.hasAttribute(a)){document.body.removeAttribute(a)}})}catch(e){} })();`}
         </Script>
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <div id='page'>
           <MainHeader/>
           {children}

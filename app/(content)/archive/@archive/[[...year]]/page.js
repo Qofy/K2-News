@@ -2,9 +2,11 @@ import NewsList from "@/components/news-list";
 import { getAvailableNewsMonths, getAvailableNewsYears, getNewsForYear, getNewsForYearAndMonth } from "@/lib/news";
 import Link from "next/link";
 
-export default function FilterNewsPage({params}){
-    const year = params.year;
-    
+export default async function FilterNewsPage({ params }) {
+    // `params` us a Promise in newer Next.js internals — await it first.
+    const resolved = await params;
+    const year = resolved?.year;
+
     const selectedYear = year?.[0];
     const selectedMonth = year?.[1];
     
