@@ -11,15 +11,15 @@ export default async function FilterNewsPage({ params }) {
     const selectedMonth = year?.[1];
     
     let news;
-    let links = getAvailableNewsYears();
+    let links = await getAvailableNewsYears();
 
     if(selectedYear && !selectedMonth){
-        news =getNewsForYear(selectedYear); 
+        news = await getNewsForYear(selectedYear); 
         links = getAvailableNewsMonths(selectedYear);
     }
 
     if (selectedYear && selectedMonth){
-        news = getNewsForYearAndMonth(selectedYear, selectedMonth);
+        news = await getNewsForYearAndMonth(selectedYear, selectedMonth);
         links=[];
     }
 
@@ -29,9 +29,10 @@ if (news && news.length > 0){
     newsContent = <NewsList news={news}/>
 }
 
+const availableYear = await getAvailableNewsYears();
     // Validate selected year/month early and consistently.
-    const invalidYear = selectedYear && !getAvailableNewsYears().includes(+selectedYear);
-    const invalidMonth = selectedMonth && selectedYear && !getAvailableNewsMonths(+selectedYear).includes(+selectedMonth);
+    const invalidYear = selectedYear && !availableYear.includes(selectedYear);
+    const invalidMonth = selectedMonth && selectedYear && !getAvailableNewsMonths(selectedYear).includes(+selectedMonth);
 
     if (invalidYear || invalidMonth) {
         throw new Error("Invalid News");
